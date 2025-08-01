@@ -1,0 +1,24 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: ./flask-api
+      dockerfile: Dockerfile
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./flask-api:/app
+    environment:
+      FLASK_ENV: development
+
+  frontend:
+    build:
+      context: ./primedesk-test
+      dockerfile: Dockerfile
+    ports:
+      - "80:80"
+    volumes:
+      - ./primedesk-test:/app
+    depends_on:
+      - backend
